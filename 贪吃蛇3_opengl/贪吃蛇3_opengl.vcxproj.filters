@@ -33,5 +33,11 @@
     <ClCompile Include="test_menu.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test_text.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_glfw.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
