@@ -1,5 +1,6 @@
-
-#include<GL/glut.h>
+/*
+#include <GL/freeglut.h>
+//#include<GL/glut.h>
 #include <GLFW/glfw3.h>
 #include<iostream>
 //#include<windows.h>
@@ -13,10 +14,9 @@ POINT coor[SNAKE_NUM][4];
 POINT snake_center_coor[SNAKE_NUM], food_center_coor;
 POINT food[2];
 int  snake_x_tmp, snake_y_tmp, food_x_tmp, food_y_tmp;
-bool food_flag,die;
-int Functime_tmp, Functime = 200;
-int mainWindow,die_window;
-int die_windowi=0;
+bool food_flag,die,restart;
+int Functime_tmp, Functime = 33;
+int windows;
 //枚举
 enum DIR {
 	UP,
@@ -74,16 +74,18 @@ void myPoints(int value) {
 	for (int i=size;i>0 ;i--)
 	{
 
-		coor[i][0] = coor[i - 1][0];
-		coor[i][1] = coor[i - 1][1];
+		coor[i][0].x = coor[i - 1][0].x;
+		coor[i][0].y = coor[i - 1][0].y;
+		coor[i][1].x = coor[i - 1][1].x;
+		coor[i][1].y = coor[i - 1][1].y;
 	}
 
 	if (!die) {
-	glutTimerFunc(Functime, myPoints, 1);
-	glutSetWindow(mainWindow);
-	glutPostRedisplay();
+	glutTimerFunc(8, myPoints, 1);
+	//glutSetWindow(mainWindow);
+	//glutPostRedisplay();
 	}
-	
+	//Sleep(200);
 
 	
 
@@ -133,7 +135,7 @@ void myKeyBorad(unsigned char key, int x, int y) {
 	}
 
 
-	glutSetWindow(mainWindow);
+	//glutSetWindow(mainWindow);
 	//glutPostRedisplay();
 
 
@@ -144,11 +146,11 @@ void display_string() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glRasterPos2f(0.0f, 0.0f);
-	drawString("You die");
+	drawString("You die ");
 
-	glFlush();
+	glutSwapBuffers();
 }
-//-------------------------------------------------
+//-----------------------------------------------------
 void snake_die() {
 	if (snake_center_coor[0].x >= 300 + 20 || snake_center_coor[0].x <= -100 + 20 || snake_center_coor[0].y >= 300 || snake_center_coor[0].y <= -100) {
 		//display_string();
@@ -181,14 +183,18 @@ void menufunc(int data) {
 
 	switch (data) {
 	case 1:
-		Functime_tmp = Functime;
-		Functime = 10000000000000000;
+		speed = 0;
 		break;
 	case 2:
-		Functime = Functime_tmp;
+		speed = 10;
 		break;
 	case 3:
 		exit(0);
+		break;
+	case 4:
+		restart = true;
+		glutDestroyWindow(windows);
+
 		break;
 
 	}
@@ -214,7 +220,7 @@ void Food() {
 void Eat_food() {
 
 
-	if (food_flag&&snake_center_coor[0].x >= food_center_coor.x - 20 && snake_center_coor[0].x <= food_center_coor.x + 20 && snake_center_coor[0].y >= food_center_coor.y - 20 && snake_center_coor[0].y <= food_center_coor.y + 20)
+	if (food_flag&&snake_center_coor[0].x >= food_center_coor.x - 10 && snake_center_coor[0].x <= food_center_coor.x + 10 && snake_center_coor[0].y >= food_center_coor.y - 10 && snake_center_coor[0].y <= food_center_coor.y + 10)
 	{
 		food_flag = false;
 		printf("--------------------------吃到食物了！！！！当前蛇长度%d--------------当前时间%d-----------\n",size,Functime);
@@ -245,7 +251,7 @@ void show_myPoints(void)
 			glRectf(food[0].x, food[0].y, food[1].x, food[1].y);
 
 		}
-		glFlush();
+		glutSwapBuffers();
 		printf("当前蛇头中心坐标%d    %d    \n", snake_center_coor[0].x, snake_center_coor[0].y);
 		printf("当前食物中心坐标%d    %d    \n", food_center_coor.x, food_center_coor.y);
 		
@@ -254,18 +260,23 @@ void show_myPoints(void)
 		printf("你已经死了\n");
 		glClearColor(0, 0, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT);
+		gluOrtho2D(-10, 30, -10, 30);
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glRasterPos2f(0.0f, 0.0f);
+		
+		glRasterPos2f(125.0f, 165.0f);
 		drawString("You die");
-		glFlush();
+
+		glutSwapBuffers();
 
 	}
-
+	glutPostRedisplay();
+	
 }
 void init()
-{
-	size = 3;
-	speed = 10;
+{ 
+	restart = false;
+	size = 10;
+	speed = 2;
 	dir = RIGHT;
 	die = false;
 	srand(GetTickCount64());
@@ -275,8 +286,8 @@ void init()
 	coor[0][1].y = 10;//第三个(10,10)
 
 	for (int i = 1; i < size; i++) {
-		coor[i][0].x = coor[i - 1][0].x - 10;
-		coor[i][1].x = coor[i - 1][1].x - 10;
+		coor[i][0].x = coor[i - 1][0].x - speed;
+		coor[i][1].x = coor[i - 1][1].x - speed;
 		coor[i][0].y = coor[i - 1][0].y;
 		coor[i][1].y = coor[i - 1][1].y;
 	}
@@ -288,19 +299,15 @@ void init()
 
 }
 
-int main(int argc, char** argv) {
-	printf("wsad控制方向，右键显示菜单--------五秒后进入游戏\n");
-	Sleep(10);
+void a() {
 
-	glutInit(&argc, argv);
-
-	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 
 	glutInitWindowPosition(300, 100);
 
 	glutInitWindowSize(800, 800);
-	mainWindow=glutCreateWindow("贪吃蛇");
-
+	int  mainWindow = glutCreateWindow("贪吃蛇");
+	windows = glutGetWindow();
 	init();
 	glutCreateMenu(menufunc);
 	glutAddMenuEntry("pause", 1);
@@ -309,16 +316,36 @@ int main(int argc, char** argv) {
 	glutAddMenuEntry("continue", 2);
 
 	glutAddMenuEntry("exit", 3);
+	glutAddMenuEntry("restart", 4);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 	glutDisplayFunc(show_myPoints);
-	glutTimerFunc(10, myPoints,1);
+	glutTimerFunc(200, myPoints, 1);
+	//glutIdleFunc(show_myPoints);
 	glutKeyboardFunc(myKeyBorad);
 	if (!die) {
-	glutMainLoop();
+		glutMainLoop();
 	}
+	
 	
 	
 }
 
+int main(int argc, char** argv) {
+	printf("wsad控制方向，右键显示菜单--------五秒后进入游戏\n");
+	Sleep(10);
+
+	glutInit(&argc, argv);
+	restart = false;
+	std::thread t1(a);
+	t1.join();
+	//std::atomic::wait();
+	while (!die) {
+		
+	}
+
+}
 
 
+
+
+*/
