@@ -1,19 +1,12 @@
 ﻿  main.cpp
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(244,63): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(244,49): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(244,35): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(244,21): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(245,26): warning C4305: “参数”: 从“double”到“GLfloat”截断
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(247,64): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(247,50): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(247,36): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(247,22): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(251,52): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(251,41): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(251,30): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(251,19): warning C4244: “参数”: 从“LONG”转换到“GLfloat”，可能丢失数据
-H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(282,22): warning C4244: “参数”: 从“ULONGLONG”转换到“unsigned int”，可能丢失数据
-  test.cpp
-  test_glfw.cpp
-  正在生成代码...
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(266,26): warning C4305: “参数”: 从“double”到“GLfloat”截断
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(268,64): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(268,50): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(268,36): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(268,22): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(272,52): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(272,41): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(272,30): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(272,19): warning C4244: “参数”: 从“int”转换到“GLfloat”，可能丢失数据
+H:\贪吃蛇——OpenGL\greedy-snake--open-gl\贪吃蛇3_opengl\main.cpp(304,22): warning C4244: “参数”: 从“ULONGLONG”转换到“unsigned int”，可能丢失数据
   贪吃蛇3_opengl.vcxproj -> H:\贪吃蛇——OpenGL\greedy-snake--open-gl\Debug\贪吃蛇3_opengl.exe

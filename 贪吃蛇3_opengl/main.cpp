@@ -7,12 +7,30 @@
 #include<conio.h>
 #include <thread>
 #include<math.h>
-#define SNAKE_NUM 500
+#define SNAKE_NUM 5000
 #define MAX_CHAR        128
 int speed, dir, size;
-POINT coor[SNAKE_NUM][4];
-POINT snake_center_coor[SNAKE_NUM], food_center_coor;
-POINT food[2];
+// 结构体
+struct Point
+{
+	int x;
+	int y;
+
+	// 重载==
+	bool operator==(const Point& p)
+	{
+		if (this->x == p.x && this->y == p.y)
+		{
+			return true;
+		}
+		return false;
+	}
+};
+Point coor[SNAKE_NUM][4];
+Point snake_center_coor[SNAKE_NUM], food_center_coor;
+Point food[2];
+
+
 int  snake_x_tmp, snake_y_tmp, food_x_tmp, food_y_tmp;
 bool food_flag, die, restart;
 int Functime_tmp, Functime = 33;
@@ -156,6 +174,11 @@ void snake_die() {
 		//display_string();
 		die = true;
 	}
+	for (int i = 2; i <= size; i++) {
+		if (snake_center_coor[1]==snake_center_coor[i]) {
+			die = true;
+		}
+	}
 }
 
 
@@ -224,7 +247,7 @@ void Eat_food() {
 	{
 		food_flag = false;
 		printf("--------------------------吃到食物了！！！！当前蛇长度%d--------------当前时间%d-----------\n", size, Functime);
-		size++;
+		size=size+5;
 
 	}
 	if (!food_flag) {
@@ -239,11 +262,9 @@ void show_myPoints(void)
 		snake_die();
 		Eat_food();
 		glClear(GL_COLOR_BUFFER_BIT);
-		glColor3f(1.0, 0.0, 1.0);
-		glPointSize(1);
-		glRectf(coor[0][0].x, coor[0][0].y, coor[0][1].x, coor[0][1].y);
+		
 		glColor3f(0.6, 0.5, 0.2);
-		for (int i = 1; i <= size; i++) {
+		for (int i = 0; i <= size; i++) {
 			glRectf(coor[i][0].x, coor[i][0].y, coor[i][1].x, coor[i][1].y);
 		}
 		if (food_flag) {
@@ -265,7 +286,8 @@ void show_myPoints(void)
 
 		glRasterPos2f(125.0f, 165.0f);
 		drawString("You die");
-
+		Sleep(500);
+		system("cls");
 		glutSwapBuffers();
 
 	}
@@ -339,6 +361,7 @@ int main(int argc, char** argv) {
 	std::thread t1(a);
 	t1.join();
 	//std::atomic::wait();
+	//a();
 	while (!die) {
 
 	}
