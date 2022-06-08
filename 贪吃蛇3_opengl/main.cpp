@@ -1,6 +1,6 @@
 
 #include <GL/freeglut.h>
-//#include<GL/glut.h>
+
 #include <GLFW/glfw3.h>
 #include<iostream>
 //#include<windows.h>
@@ -29,7 +29,6 @@ struct Point
 Point coor[SNAKE_NUM][2];
 Point snake_center_coor[SNAKE_NUM], food_center_coor;
 Point food[2];
-
 
 int  snake_x_tmp, snake_y_tmp, food_x_tmp, food_y_tmp;
 bool food_flag, die, restart;
@@ -269,6 +268,7 @@ void Eat_food() {
 //绘制画面
 void show_myPoints(void)
 {
+	
 	//先判断蛇有没有死亡，如果死亡就绘制已经死亡的文字，反之则通过蛇每一节的两个坐标绘制一个个正方形
 	if (!die) {
 		
@@ -373,6 +373,7 @@ void a() {
 	 */
 	windows = glutGetWindow();
 	init();
+
 	//创建菜单功能
 	glutCreateMenu(menufunc);
 	/*下面是显示菜单的按钮
@@ -402,12 +403,17 @@ void a() {
 }
 
 int main(int argc, char** argv) {
-	printf("wsad控制方向，右键显示菜单--------五秒后进入游戏\n");
-	Sleep(5000);
+	
+	for (int i = 5; i > 0; i--) {
+		printf("wsad控制方向，右键显示菜单--------%d秒后进入游戏\n",i);
+		Sleep(1000);
+	}
+	
 	//初始化glut
 	glutInit(&argc, argv);
 	//默认不需要重新开始
 	restart = false;
+	//game_start = false;
 	//启动线程去调用a
 	std::thread t1(a);
 	//阻塞线程，也就是让主线程去等在子线程运行结束
