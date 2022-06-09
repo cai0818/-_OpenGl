@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include<iostream>
-//#include<windows.h>
+#include<windows.h>
 #include<conio.h>
 #include <thread>
 #include<math.h>
@@ -31,7 +31,7 @@ Point snake_center_coor[SNAKE_NUM], food_center_coor;
 Point food[2];
 
 int  snake_x_tmp, snake_y_tmp, food_x_tmp, food_y_tmp;
-bool food_flag, die, restart;
+bool food_flag, die, restart, Pause;
 int Functime_tmp, Functime = 33;
 int windows;
 //枚举
@@ -175,17 +175,20 @@ void display_string() {
 }
 //-----------------------------------------------------
 void snake_die() {
+	if (!Pause) {
 	//判断蛇头的中心坐标x,y是否出去整个边框
-	if (snake_center_coor[0].x >= 300 + 20 || snake_center_coor[0].x <= -100 + 20 || snake_center_coor[0].y >= 300 || snake_center_coor[0].y <= -100) {
+	   if (snake_center_coor[0].x >= 300 + 20 || snake_center_coor[0].x <= -100 + 20 || snake_center_coor[0].y >= 300 || snake_center_coor[0].y <= -100) {
 		//display_string();
 		die = true;
-	}
+	   }
 	//判断蛇头的中心坐标x，y是否和蛇身中心坐标重合
-	for (int i = 2; i <= size; i++) {
+	    for (int i = 2; i <= size; i++) {
 		if (snake_center_coor[1]==snake_center_coor[i]) {
 			die = true;
 		}
 	}
+	}
+	
 }
 
 //计算全部的中心坐标
@@ -213,9 +216,11 @@ void menufunc(int data) {
 
 	switch (data) {
 	case 1:
+		Pause = true;
 		speed = 0;
 		break;
 	case 2:
+		Pause = false;
 		speed = 2;
 		break;
 	case 3:
@@ -248,7 +253,7 @@ void Food() {
 	}
 }
 
-//判断是否迟到食物
+//判断是否吃到食物
 void Eat_food() {
 
 
@@ -296,7 +301,7 @@ void show_myPoints(void)
 
 	}
 	if (die) {
-		printf("你已经死了\n，蛇身的长度是%d",(size-10)/5);
+		printf("你已经死了\n，你一共吃了%d 个食物",(size-10)/5);
 		//清空背景颜色
 		glClearColor(0, 0, 0, 0);
 		//清空颜色缓冲区
@@ -311,6 +316,7 @@ void show_myPoints(void)
 		* 也可以起到节省硬件资源的效果，
 		* 
 		*/
+
 		Sleep(33);
 		//之前清空命令行
 		system("cls");
@@ -328,6 +334,8 @@ void show_myPoints(void)
 void init()
 {
 	restart = false;
+	Pause = false;
+	
 	size = 10;
 	speed = 2;
 	dir = RIGHT;
@@ -371,6 +379,7 @@ void a() {
 	/*
 	*为之前重新开始的窗体提供数据（功能失败的）
 	 */
+
 	windows = glutGetWindow();
 	init();
 
@@ -379,7 +388,8 @@ void a() {
 	/*下面是显示菜单的按钮
 	* 通过返回int类型和menfunc回调参数进行判读按下了哪一个
 	*/
-	glutAddMenuEntry("pause", 1);
+
+    glutAddMenuEntry("pause", 1);
 
 
 	glutAddMenuEntry("continue", 2);
@@ -423,7 +433,5 @@ int main(int argc, char** argv) {
 	
 
 }
-
-
 
 

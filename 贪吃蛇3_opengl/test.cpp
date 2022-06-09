@@ -10,9 +10,26 @@
 #define SNAKE_NUM 500
 #define MAX_CHAR        128
 int speed, dir, size;
-POINT coor[SNAKE_NUM][4];
-POINT snake_center_coor[SNAKE_NUM], food_center_coor;
-POINT food[2];
+// 结构体
+struct Point
+{
+	int x;
+	int y;
+
+	// 重载==，提供下面判断中心点坐标是否重合
+	bool operator==(const Point& p)
+	{
+		if (this->x == p.x && this->y == p.y)
+		{
+			return true;
+		}
+		return false;
+	}
+};
+Point coor[SNAKE_NUM][2];
+Point snake_center_coor[SNAKE_NUM], food_center_coor;
+Point food[2];
+
 int  snake_x_tmp, snake_y_tmp, food_x_tmp, food_y_tmp;
 bool food_flag,die,restart;
 int Functime_tmp, Functime = 33;
@@ -156,6 +173,11 @@ void snake_die() {
 		//display_string();
 		die = true;
 	}
+	for (int i = 2; i <= size; i++) {
+		if (snake_center_coor[1] == snake_center_coor[i]) {
+			die = true;
+		}
+	}
 }
 
 
@@ -186,7 +208,7 @@ void menufunc(int data) {
 		speed = 0;
 		break;
 	case 2:
-		speed = 10;
+		speed = 2;
 		break;
 	case 3:
 		exit(0);
@@ -224,7 +246,7 @@ void Eat_food() {
 	{
 		food_flag = false;
 		printf("--------------------------吃到食物了！！！！当前蛇长度%d--------------当前时间%d-----------\n",size,Functime);
-		size++;
+		size=size+5;
 
 	}
 	if (!food_flag) {
@@ -344,6 +366,7 @@ int main(int argc, char** argv) {
 	}
 
 }
+
 
 
 
