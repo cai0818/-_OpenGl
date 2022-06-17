@@ -1,6 +1,13 @@
+/*
+* 如果不能运行或者编译失败，
+* 请确保用的是vs2022
+* 以及确保项目的链接器和包含库目录是正确的（我用了相对路径）。
+* 另外附加依赖项要确保正常
+* 请确保运行的编译器是x86的，因为我连接的是静态32位的库文件
+* 64位的编译器会链接失败
+*/
 
 #include <GL/freeglut.h>
-
 #include <GLFW/glfw3.h>
 #include<iostream>
 #include<windows.h>
@@ -10,7 +17,7 @@
 #define SNAKE_NUM 5000
 #define MAX_CHAR        128
 int speed, dir, size;
-// 结构体
+// 结构体提供坐标功能
 struct Point
 {
 	int x;
@@ -154,8 +161,7 @@ void myKeyBorad(unsigned char key, int x, int y) {
 	}
 
 
-	//glutSetWindow(mainWindow);
-	//glutPostRedisplay();
+	
 
 
 }
@@ -177,7 +183,7 @@ void display_string() {
 void snake_die() {
 	if (!Pause) {
 	//判断蛇头的中心坐标x,y是否出去整个边框
-	   if (snake_center_coor[0].x >= 300 + 20 || snake_center_coor[0].x <= -100 + 20 || snake_center_coor[0].y >= 300 || snake_center_coor[0].y <= -100) {
+	   if (snake_center_coor[0].x >= 300  || snake_center_coor[0].x <= -100 || snake_center_coor[0].y >= 300 || snake_center_coor[0].y <= -100) {
 		//display_string();
 		die = true;
 	   }
@@ -312,7 +318,7 @@ void show_myPoints(void)
 		//文字的位置
 		glRasterPos2f(125.0f, 165.0f);
 		drawString("You die");
-		/*因为之前的定时器是8ms一次计算，死亡后不需要这么快的绘图，这里设置500ms
+		/*因为之前的定时器是8ms一次计算，死亡后不需要这么快的绘图，这里设置33ms
 		* 也可以起到节省硬件资源的效果，
 		* 
 		*/
@@ -346,7 +352,7 @@ void init()
 	coor[0][0].x = 0;
 	coor[0][0].y = 0;//第一个(0.0)
 	coor[0][1].x = 10;
-	coor[0][1].y = 10;//第三个(10,10)
+	coor[0][1].y = 10;//第二个(10,10)
 	//计算后续蛇身的全部坐标
 	for (int i = 1; i < size; i++) {
 		coor[i][0].x = coor[i - 1][0].x - speed;
@@ -415,7 +421,7 @@ void a() {
 int main(int argc, char** argv) {
 	
 	for (int i = 5; i > 0; i--) {
-		printf("wsad控制方向，右键显示菜单--------%d秒后进入游戏\n",i);
+		printf("wsad控制方向，右键显示菜单，出去整个框框就死--------%d秒后进入游戏\n",i);
 		Sleep(1000);
 	}
 	
@@ -423,13 +429,11 @@ int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	//默认不需要重新开始
 	restart = false;
-	//game_start = false;
 	//启动线程去调用a
 	std::thread t1(a);
 	//阻塞线程，也就是让主线程去等在子线程运行结束
 	t1.join();
-	//std::atomic::wait(); 
-	//a();
+	
 	
 
 }
