@@ -3,6 +3,5 @@
 2.无法在游戏中重新启动
 3.本项目已经上传到gitee
 地址是：https://gitee.com/cai2904623189/greedy-snake--open-gl
-主要贡献：蔡国健 
-测试：余奕韩 姚鸿新
+
 
